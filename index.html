@@ -505,9 +505,65 @@
         } catch (e) {
             console.error("Error adding document: ", e);
         }
+        
     });
-</script>
 
+
+    async function fetchBlogPostById(postId) {
+        const docRef = doc(db, "blogPosts", postId);
+        const docSnap = await getDoc(docRef);
+  
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+            const blogSection = document.querySelector('.row:last-of-type'); // Adjust selector as needed
+            // Clear existing content and add the fetched post
+            blogSection.innerHTML = `
+                <div class="col-lg-4">
+                    <div class="shadow blog-card">
+                        <div class="overflow-hidden">
+                            <img class="w-100" src="${data.imageUrl}" alt="">
+                        </div>
+                        <div class="p-4">
+                            <p class="text-secondary mb-0"> ${data.date} </p>
+                            <a class="link-style blog-link">${data.title}</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else {
+            console.log("No such document!");
+        }
+    }
+
+    fetchBlogPostById('yourPostIdHere');async function fetchBlogPostById(postId) {
+        const docRef = doc(db, "blogPosts", postId);
+        const docSnap = await getDoc(docRef);
+  
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+            const blogSection = document.querySelector('.row:last-of-type'); // Adjust selector as needed
+            // Clear existing content and add the fetched post
+            blogSection.innerHTML = `
+                <div class="col-lg-4">
+                    <div class="shadow blog-card">
+                        <div class="overflow-hidden">
+                            <img class="w-100" src="${data.imageUrl}" alt="">
+                        </div>
+                        <div class="p-4">
+                            <p class="text-secondary mb-0"> ${data.date} </p>
+                            <a class="link-style blog-link">${data.title}</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else {
+            console.log("No such document!");
+        }
+    }
+
+    // Example call with a specific post ID
+    fetchBlogPostById('yourPostIdHere');
+</script>
 
     
 </html>
