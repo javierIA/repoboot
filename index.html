@@ -535,15 +535,13 @@
         }
     }
 
-    fetchBlogPostById('yourPostIdHere');async function fetchBlogPostById(postId) {
-        const docRef = doc(db, "blogPosts", postId);
-        const docSnap = await getDoc(docRef);
-  
-        if (docSnap.exists()) {
-            const data = docSnap.data();
-            const blogSection = document.querySelector('.row:last-of-type'); // Adjust selector as needed
-            // Clear existing content and add the fetched post
-            blogSection.innerHTML = `
+    async function fetchBlogPosts() {
+        const querySnapshot = await getDocs(collection(db, "blogPosts"));
+        const blogSection = document.querySelector('.row:last-of-type'); // Assuming this is where blog posts should be displayed
+        blogSection.innerHTML = ''; // Clear existing content
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const blogCardHtml = `
                 <div class="col-lg-4">
                     <div class="shadow blog-card">
                         <div class="overflow-hidden">
@@ -556,13 +554,11 @@
                     </div>
                 </div>
             `;
-        } else {
-            console.log("No such document!");
-        }
+            blogSection.innerHTML += blogCardHtml;
+        });
     }
 
-    // Example call with a specific post ID
-    fetchBlogPostById('yourPostIdHere');
+    fetchBlogPosts();
 </script>
 
     
