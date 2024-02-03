@@ -362,7 +362,7 @@
     <!-- features end  -->
 
     <!-- blog start -->
-    <div class="container my-5">
+    <div class="container my-5" id = "blog">
         <div class="row py-5 text-center">
             <div class="col-lg-6 mx-auto">
                 <h4 class="subtitle-style mt-5"> Latest News</h4>
@@ -510,7 +510,7 @@
 
     async function fetchBlogPosts() {
         const querySnapshot = await getDocs(collection(db, "blogPosts"));
-        const blogSection = document.querySelector('.row:last-of-type'); // Assuming this is where blog posts should be displayed
+        const blogSection = document.querySelector('#blog');
         blogSection.innerHTML = ''; // Clear existing content
         querySnapshot.forEach((doc) => {
             const data = doc.data();
